@@ -1,11 +1,6 @@
-function gcd(a, b) {
-  if (b === 0) {
-    return a;
-  } else {
-    return gcd(b, a % b);
-  }
-}
-
-function lcm(a, b) {
-  return (a * b) / gcd(a, b);
+function solution(n) {
+  var answer = 0;
+  const num = [...n.toString(3)].reverse().join("");
+  answer = parseInt(num, 3);
+  return answer;
 }
