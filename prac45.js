@@ -1,16 +1,9 @@
-function isPrime(num) {
-  if (num === 1) return false;
-  if (num === 2) return true;
-  for (let i = 3; i <= Math.sqrt(num); i++) {
-    if (num % i === 0) return false;
-  }
-  return true;
-}
-
-function solution(n) {
-  var answer = 0;
-  for (let j = 1; j <= n; j++) {
-    if (isPrime(j) === true) answer++;
-  }
-  return answer;
+function solution(nums) {
+  const prime = new Array(nums + 1).fill(1);
+  let count = nums - 1;
+  for (let i = 2; i < Math.sqrt(nums); i++)
+    if (prime[i])
+      for (let j = i ** 2; j <= nums; j += i)
+        if (prime[j]) count--, (prime[j] = 0);
+  return count;
 }
