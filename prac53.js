@@ -17,15 +17,25 @@ function solution(n, lost, reserve) {
       if (reserve[i] === 1) {
         student.push(2);
       } else {
-        if (student.includes(reserve[i] - 1)) {
+        if (student.length === 0) {
           if (reserve[i] + 1 <= n) {
             student.push(reserve[i] + 1);
+          }
+        } else {
+          if (student.includes(reserve[i] - 1)) {
+            if (reserve[i] + 1 <= n) {
+              student.push(reserve[i] + 1);
+            }
           }
         }
       }
     }
   }
-  console.log(student);
+  lost.filter((e) => {
+    if (!student.includes(e)) {
+      arr.push(e);
+    }
+  });
 
-  return answer;
+  return n - arr.length;
 }
