@@ -1,41 +1,25 @@
 function solution(n, lost, reserve) {
-  var answer = 0;
-  let arr = [];
-  let student = [];
-  // for(let i = 1; i <= n; i++){
-  //     arr.push(i)
-  // }
-  // // 가져온 사람 배열 만들기
-  // arr.forEach(e => {
-  //     if(!lost.includes(e)){
-  //         student.push(e)
-  //     }
-  // })
+  let realLost = lost.filter((l) => !reserve.includes(l));
+  let realReserve = reserve.filter((r) => !lost.includes(r));
 
-  for (let i = 0; i < reserve.length; i++) {
-    if (reserve[i] <= n) {
-      if (reserve[i] === 1) {
-        student.push(2);
-      } else {
-        if (student.length === 0) {
-          if (reserve[i] + 1 <= n) {
-            student.push(reserve[i] + 1);
-          }
-        } else {
-          if (student.includes(reserve[i] - 1)) {
-            if (reserve[i] + 1 <= n) {
-              student.push(reserve[i] + 1);
-            }
-          }
+  realLost.sort((a, b) => a - b);
+  realReserve.sort((a, b) => a - b);
+
+  for (let i = 0; i < realReserve.length; i++) {
+    if (realReserve[i] === 1) {
+      realLost.filter((e) => {
+        if (e === 2) realLost.shift();
+      });
+    } else {
+      realLost.filter((e, idx) => {
+        if (realReserve[i] + 1 === e || realReserve[i] - 1 === e) {
+          realLost.splice(idx, 1);
         }
-      }
+      });
     }
   }
-  lost.filter((e) => {
-    if (!student.includes(e)) {
-      arr.push(e);
-    }
-  });
 
-  return n - arr.length;
+  console.log(realLost);
+
+  return n - realLost.length;
 }
