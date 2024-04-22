@@ -5,9 +5,11 @@ function solution(dartResult) {
 
   for (let i = 0; i < dartResult.length; i++) {
     if (dartResult[i] >= 0 && dartResult[i] <= 9) {
-      score = dartResult[i];
       if (dartResult[i] === 1 && dartResult[i + 1] === 0) {
         score = 10;
+        i++;
+      } else {
+        score = dartResult[i];
       }
     } else if (dartResult[i] === "S") {
       arr.push(score * 1);
